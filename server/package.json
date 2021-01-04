@@ -1,0 +1,16 @@
+{
+  "name": "pos",
+  "version": "1.0.0",
+  "description": "POS build for the Digital Ocean Hackaton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kiev Mendoza",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.5.1"
+  }
+}
