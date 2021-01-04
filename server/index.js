@@ -8,7 +8,7 @@ app.use(cors())
 app.use(express.json())
 
 // Routes
-//Create a client
+// Create a client
 app.post('/client', async (req, res) => {
   try {
     const { idClient, fullName, creationDate, reference } = req.body
@@ -22,7 +22,7 @@ app.post('/client', async (req, res) => {
   }
 })
 
-//Get all clients
+// Get all clients
 app.get('/clients', async (req, res) => {
   try {
     const allClients = await pool.query('SELECT * FROM Clients');
@@ -32,24 +32,35 @@ app.get('/clients', async (req, res) => {
   }
 })
 
-//Get a client
-app.get('/clients/:id', async(req, res) => {
+// Get a client
+app.get('/clients/:idClient', async(req, res) => {
   try {
-    const { id } = req.params;
-    const getClientX = await pool.query('SELECT * FROM Clients WHERE idClient = $1', [id])
+    const { idClient } = req.params;
+    const getClientX = await pool.query('SELECT * FROM Clients WHERE idClient = $1', [idClient])
     res.json(getClientX.rows[0])
   } catch (err) {
     console.error(err)
   }
 })
 
-//Update a Client
-app.put('/clients/:id', async (req, res) => {
-  try{
-    const { id } = req.params
+// Update a Client
+app.put('/clients/:idClient', async (req, res) => {
+  try {
+    const { idClient } = req.params
     const { fullName } = req.body
-    // const updateClient = await pool.query('UPDATE Client SET fullName = $1 WHERE idClient = $2', [fullName, id])
-    // res.json('The client was updated')
+    const updateClient = await pool.query('UPDATE Clients SET fullName = $1 WHERE idClient = $2', [fullName, idClient])
+    res.json('The client was updated')
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+// Delete a Client
+app.delete('/clients/:idClient', async (req, res) => {
+  try {
+    const { idClient } = req.params
+    const deleteClient = await pool.query('DELETE FROM Clients WHERE IdClient = $1', [idClient])
+    res.json('The client was deleted')
   } catch (err) {
     console.error(err)
   }
